@@ -1,7 +1,6 @@
-(ns cj-blog.controllers)
+(ns cj-blog.controllers
+  (:require [cj-blog.persistence :as persistence]))
 
-(defn home-page "home page" []
-  {:blogs [{:title "Some Blog Title" :date "10-10-2015"}
-           {:title "Some Other Title" :date "10-13-2015"}
-           ]}
+(defn home-page "home page controller" []
+  {:blogs (persistence/get-all-blogs)}
   )
