@@ -1,8 +1,7 @@
 <h1>Blogs</h1>
-<ul>
 {% for blog in blogs %}
-  <li>{{blog.title}} {{blog.date}}</li>
+  <a href="/blog/{{blog.id}}">{{blog.title}} {{blog.date}}</a>
 {% endfor %}
-</ul>
+<a href="/new-blog">Create a blog</a>
 
 <h5>Footer</h5>

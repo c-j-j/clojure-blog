@@ -2,13 +2,18 @@
   (:use midje.sweet
         :require [cj-blog.persistence :as persistence]))
 
-(def blog-to-add {:id "id" :title "title" :date "date"})
+(def blog-a {:id "id-a" :title "title" :date "date"})
+(def blog-b {:id "id-b" :title "title" :date "date"})
 (facts "get all blogs"
   (against-background [(before :facts (clear-blogs))])
   (fact "no blogs returned intially"
     (get-all-blogs) => [])
 
-  (fact "one blog returned intially"
-    (against-background [(before :checks (add-blog blog-to-add))])
-    (get-all-blogs) => [blog-to-add])
+  (fact "one blog returned"
+    (against-background [(before :checks (add-blog blog-a))])
+    (get-all-blogs) => [blog-a])
+
+  (fact "creates and retrieves blog"
+    (against-background [(before :checks (do (add-blog blog-a)(add-blog blog-b)))])
+    (get-blog "id-b") => blog-b)
   )
