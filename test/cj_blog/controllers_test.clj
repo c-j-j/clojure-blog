@@ -30,10 +30,6 @@
     (provided
       (persistence/add-blog (contains {:id "1"})) => nil))
 
-  (fact "saves blog with current timestamp"
-    (create-blog form-data) => nil
-    (provided
-      (persistence/add-blog (contains :date not-empty)) => nil))
   )
 
 (facts "blog page"
