@@ -20,6 +20,8 @@
            (GET "/blog/:id" [id]  (render-file "blog.html" (controllers/blog-page id)))
            (GET "/new-blog" [] (render-file "new-blog.html" {}) )
            (POST "/new-blog" {params :params } (do (controllers/create-blog params)(redirect "/")))
+           (route/resources "/")
            (route/not-found "Not Found"))
+
 
 (def app (wrap-defaults app-routes (assoc-in site-defaults [:security :anti-forgery] false)))

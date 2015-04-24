@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 <h1>New blog</h1>
 
 <form action="/new-blog" method="POST">
@@ -11,4 +13,5 @@
         <input type="SUBMIT" value="Create Blog Post"/>
         </form>
 
+{% endblock %}
 

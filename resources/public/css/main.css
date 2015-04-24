@@ -1,0 +1,13 @@
+body {
+ background-color: rgb(189, 215, 255);
+ padding: 0;
+ font-family: arial;
+ margin: 0;
+}
+
+main {
+    background-color: white;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
