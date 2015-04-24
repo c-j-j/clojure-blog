@@ -23,5 +23,4 @@
            (route/resources "/")
            (route/not-found "Not Found"))
 
-
 (def app (wrap-defaults app-routes (assoc-in site-defaults [:security :anti-forgery] false)))

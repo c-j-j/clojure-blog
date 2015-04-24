@@ -16,7 +16,8 @@
     )
   )
 
-(def form-data {:title "title" :date "date" :content "content"})
+(def form-data {:title "title" :content "content"})
+
 (facts "create blog"
   (fact "saves now blog by calling persistence api"
     (create-blog form-data) => nil
@@ -28,6 +29,11 @@
     (create-blog form-data) => nil
     (provided
       (persistence/add-blog (contains {:id "1"})) => nil))
+
+  (fact "saves blog with current timestamp"
+    (create-blog form-data) => nil
+    (provided
+      (persistence/add-blog (contains :date not-empty)) => nil))
   )
 
 (facts "blog page"

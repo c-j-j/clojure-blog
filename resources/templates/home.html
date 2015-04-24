@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Blogs</h1>
+<h1>All blogs</h1>
 {% for blog in blogs %}
-  <a href="/blog/{{blog.id}}">{{blog.title}} {{blog.date}}</a>
+<article>
+  <a href="/blog/{{blog.id}}">{{blog.title}}</a>
+  <p>Published: {{blog.date}}</p>
+  <hr />
+</article>
 {% endfor %}
 <a href="/new-blog">Create a blog</a>
-
-<h5>Powered by Clojure</h5>
 
 {% endblock %}
