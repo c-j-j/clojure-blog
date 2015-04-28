@@ -9,8 +9,14 @@
 
 (def date-formatter (f/formatters :mysql))
 
+(defn- format-date [blog]
+  (update-in blog [:date] (partial f/unparse date-formatter)))
+
+(defn- format-dates [blogs]
+ (map #(format-date %) blogs))
+
 (defn home-page "home page controller" []
-  {:blogs (persistence/get-all-blogs)})
+  {:blogs (format-dates (persistence/get-all-blogs))})
 
 (defn add-id [params]
   (assoc params :id (str (swap! current-blog-id inc))))
@@ -22,4 +28,4 @@
   (persistence/add-blog (add-date (add-id params))))
 
 (defn blog-page [id]
-  (update-in (persistence/get-blog id) [:date] (partial f/unparse date-formatter)))
+  (format-date (persistence/get-blog id)))

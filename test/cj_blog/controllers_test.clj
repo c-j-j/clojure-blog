@@ -8,17 +8,22 @@
         [cj-blog.persistence :as persistence]))
 
 (def current-time (l/local-now))
+(def current-time-formatted (f/unparse controllers/date-formatter current-time))
 
 (def single-blog {:id 1 :title "blog1" :date current-time})
-
+(def form-data {:title "title" :content "content"})
 (def all-blog-posts-response (vector single-blog))
+
 (facts "home page controller"
   (fact "home page returns all blog posts"
-    (:blogs (home-page)) => all-blog-posts-response
+    (:blogs (home-page)) => (contains [(contains {:id 1 :title "blog1"})])
     (provided
-      (persistence/get-all-blogs) => all-blog-posts-response)))
-
-(def form-data {:title "title" :content "content"})
+      (persistence/get-all-blogs) => all-blog-posts-response))
+  
+  (fact "all blog posts have their dates formatted"
+    (:blogs (home-page)) => (contains [(contains {:date current-time-formatted})])
+    (provided
+      (persistence/get-all-blogs) => all-blog-posts-response)) )
 
 (facts "create blog"
   (fact "saves now blog by calling persistence api"
