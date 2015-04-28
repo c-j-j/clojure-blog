@@ -19,7 +19,7 @@
     (:blogs (home-page)) => (contains [(contains {:id 1 :title "blog1"})])
     (provided
       (persistence/get-all-blogs) => all-blog-posts-response))
-  
+
   (fact "all blog posts have their dates formatted"
     (:blogs (home-page)) => (contains [(contains {:date current-time-formatted})])
     (provided

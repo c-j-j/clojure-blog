@@ -12,11 +12,7 @@
 (facts "home page tests"
   (fact "body contains blog titles"
     (app (mock/request :get "/")) => (contains {:body (contains "Some Blog Title")})
-    (provided (controllers/home-page) => home-page-mock-response))
-
-  (fact "status"
-    (app (mock/request :get "/")) => (contains {:status 200}))
-  )
+    (provided (controllers/home-page) => home-page-mock-response)))
 
 (facts "new blog tests"
   (fact "posting new blog redirects back to home page"
@@ -30,5 +26,4 @@
     (app (mock/request :get "/blog/some-id")) => (contains {:status 200})
     (app (mock/request :get "/blog/some-id")) => (contains {:body (contains "Some Content")})
     (provided (controllers/blog-page "some-id") => single-blog)))
-
 
