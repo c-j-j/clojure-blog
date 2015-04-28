@@ -17,3 +17,10 @@
     (against-background [(before :checks (do (add-blog blog-a)(add-blog blog-b)))])
     (get-blog "id-b") => blog-b)
   )
+
+(facts "comments"
+  (against-background [(before :facts (clear-blogs))])
+  (fact "saves a single comment to a blog"
+    (against-background [(before :checks (do (add-blog blog-a)(save-comment {:blog-id (:id blog-a) :comment "some-comment"})))])
+    (get-blog (:id blog-a)) => (contains {:comment "some-comment"}))
+  )

@@ -1,9 +1,45 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>{{title}}</h1>
-<h5>Published: {{date}}</h5>
-<hr />
-<p>{{content}}</p>
+<section class="main-blog-post">
+  <header class="title">
+<h3>{{title}}</h5>
 
+<div class="rating"><h5>Rating: 4/5</h5></div>
+</header>
+
+<div class="date">
+<h5>Published: {{date}}</h5>
+</div>
+
+
+<article>{{content}}</article>
+</section>
+
+<hr />
+<section class="comments">
+  <header class="title">
+    <h3>Comments</h3>
+    </header>
+<p><strong>UserA</strong></p>
+
+<p>Some comment.<p>
+<hr />
+
+<p><strong>UserB</strong></p>
+<p>Another comment.<p>
+<hr />
+
+<h5>Write a comment</h5>
+<form action="/post-comment" method="POST" id="new-comment-form">
+  <label for="name">Name: </label>
+  <input type="TEXT" name="name"/>
+  <br/>
+  <textarea rows="10" cols="50" name="comment" form="new-blog-form"></textarea>
+  <input type="hidden" name="blog-id" value="some-blogid"/>
+  <input type="SUBMIT" value="Submit comment"/>
+</form>
+<a>Add a comment</a>
+
+</section>
 {% endblock %}

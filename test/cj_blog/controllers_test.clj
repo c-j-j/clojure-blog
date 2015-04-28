@@ -53,3 +53,10 @@
     (blog-page "some-id") => (contains {:date (f/unparse controllers/date-formatter current-time)})
     (provided
       (persistence/get-blog "some-id") => single-blog)))
+
+(facts "ability to add comment to blog"
+    (fact "comment is added to persistence"
+      (add-comment "some-comment") => nil
+      (provided
+        (persistence/save-comment "some-comment") => nil))
+  )

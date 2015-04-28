@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>All blogs</h1>
+<header class="title">
+  <h3>All blogs</h3>
+  </header>
 {% for blog in blogs %}
 <article>
   <a href="/blog/{{blog.id}}">{{blog.title}}</a>

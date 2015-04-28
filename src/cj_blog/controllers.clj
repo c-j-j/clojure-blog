@@ -29,3 +29,7 @@
 
 (defn blog-page [id]
   (format-date (persistence/get-blog id)))
+
+(defn add-comment [comment]
+  (persistence/save-comment comment)
+  )

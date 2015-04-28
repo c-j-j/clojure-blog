@@ -6,8 +6,8 @@
         [cj-blog.handler :refer :all]))
 
 (def single-blog {:title "Some Blog Title" :content "Some Content" :date "Some Date"})
-(def home-page-mock-response {:blogs [single-blog]})
 
+(def home-page-mock-response {:blogs [single-blog]})
 
 (facts "home page tests"
   (fact "body contains blog titles"
