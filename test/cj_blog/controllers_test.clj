@@ -3,18 +3,20 @@
         :require
         [ring.mock.request :as mock]
         [cj-blog.controllers :as controllers]
-        [cj-blog.persistence :as persistence])
-  )
+        [clj-time.local :as l]
+        [clj-time.format :as f]
+        [cj-blog.persistence :as persistence]))
 
-(def single-blog {:id 1 :title "blog1" :date "10-10-2016"})
+(def current-time (l/local-now))
+
+(def single-blog {:id 1 :title "blog1" :date current-time})
+
 (def all-blog-posts-response (vector single-blog))
 (facts "home page controller"
   (fact "home page returns all blog posts"
     (:blogs (home-page)) => all-blog-posts-response
     (provided
-      (persistence/get-all-blogs) => all-blog-posts-response)
-    )
-  )
+      (persistence/get-all-blogs) => all-blog-posts-response)))
 
 (def form-data {:title "title" :content "content"})
 
@@ -30,10 +32,19 @@
     (provided
       (persistence/add-blog (contains {:id "1"})) => nil))
 
-  )
+  (fact "saves blog with current local date"
+    (create-blog form-data) => nil
+    (provided
+      (l/local-now) => "SomeDate"
+      (persistence/add-blog (contains {:date "SomeDate"})) => nil)))
 
 (facts "blog page"
   (fact "gets blog from persistence"
-    (blog-page "some-id") => single-blog
+    (blog-page "some-id") => (contains {:id 1 :title "blog1"})
+    (provided
+      (persistence/get-blog "some-id") => single-blog))
+
+  (fact "blog has date formatted"
+    (blog-page "some-id") => (contains {:date (f/unparse controllers/date-formatter current-time)})
     (provided
       (persistence/get-blog "some-id") => single-blog)))
